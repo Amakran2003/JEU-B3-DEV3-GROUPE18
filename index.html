@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Jeu 2D Multijoueur - Démo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Écran de lancement simple -->
+    <div id="accueil">
+        <h1>Bienvenue dans le jeu !</h1>
+        <button id="startBtn">Commencer</button>
+    </div>
+    <!-- Canvas pour afficher le jeu -->
+    <canvas id="gameCanvas" width="800" height="450" style="display:none;"></canvas>
+    <script src="main.js"></script>
+    <script>
+    // On attend que la page soit chargée
+    document.addEventListener('DOMContentLoaded', () => {
+        // On récupère le bouton démarrer
+        const startBtn = document.getElementById('startBtn');
+        // Quand on clique sur le bouton, on lance le jeu
+        if (startBtn) {
+            startBtn.addEventListener('click', () => {
+                lancerJeu(); // Appelle la fonction JS
+            });
+        }
+    });
+    </script>
+</body>
+</html>
