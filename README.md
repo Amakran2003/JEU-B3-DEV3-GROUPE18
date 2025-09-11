@@ -2,7 +2,11 @@
 
 Un jeu de combat sur plateforme en 2D où deux joueurs s'affrontent dans un duel épique !
 
-## 🎮 Comment Jouer
+## � Jouer en ligne
+
+**[JOUER MAINTENANT](https://amakran2003.github.io/JEU-B3-DEV3-GROUPE10/)**
+
+## �🎮 Comment Jouer
 
 ### Contrôles
 
@@ -53,9 +57,12 @@ Un jeu de combat sur plateforme en 2D où deux joueurs s'affrontent dans un duel
 
 ## 🚀 Pour Lancer le Jeu
 
-1. Assurez-vous que tous les fichiers sont correctement installés.
-2. Ouvrez le fichier `index.html` dans votre navigateur.
-3. Amusez-vous !
+1. **Option en ligne** : Visitez directement [https://amakran2003.github.io/JEU-B3-DEV3-GROUPE10/](https://amakran2003.github.io/JEU-B3-DEV3-GROUPE10/) pour jouer sans installation.
+
+2. **Option locale** :
+   - Clonez le dépôt : `git clone https://github.com/Amakran2003/JEU-B3-DEV3-GROUPE18.git`
+   - Ouvrez le fichier `index.html` dans votre navigateur.
+   - Amusez-vous !
 
 ## 💻 Développement
 
