@@ -1,0 +1,48 @@
+name: Déploiement GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+# Définir les permissions pour les actions GitHub
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Autoriser un déploiement simultané uniquement
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Job de construction
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupération du code
+        uses: actions/checkout@v3
+      
+      - name: Configuration de Pages
+        uses: actions/configure-pages@v3
+      
+      - name: Création d'une liste des fichiers pour le débogage
+        run: find . -type f | sort
+      
+      - name: Téléchargement de l'artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: '.'
+          
+  # Job de déploiement
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Déploiement sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
