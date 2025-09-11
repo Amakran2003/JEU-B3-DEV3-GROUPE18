@@ -1,12 +1,8 @@
-# Jeu 2D Multijoueur
+# Jeu de Plateforme Combat 2D
 
-Ce projet est un jeu de plateforme multijoueur très simple, réalisé en JavaScript, TypeScript, HTML et CSS dans le cadre du module B3-DEV3.
+Un jeu de combat sur plateforme en 2D où deux joueurs s'affrontent dans un duel épique !
 
-## Liens
-
-- **Jouer au jeu en ligne** : [https://amakran2003.github.io/JEU-B3-DEV3-GROUPE18](https://amakran2003.github.io/JEU-B3-DEV3-GROUPE18)
-
-## Démarrage
+## 🎮 Comment Jouer
 
 ### Contrôles
 

@@ -1,31 +1,126 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Jeu 2D Multijoueur - Démo</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Plateforme 1 vs 1</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        /* Styles anti-zoom supplémentaires */
+        html, body {
+            overflow: hidden;
+            touch-action: none;
+            -ms-touch-action: none;
+            -ms-content-zooming: none;
+        }
+    </style>
 </head>
 <body>
-    <!-- Écran de lancement simple -->
-    <div id="accueil">
-        <h1>Bienvenue dans le jeu !</h1>
-        <button id="startBtn">Commencer</button>
+    <div id="main-menu" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100vw; height: 100vh; background: #111; position: fixed; top: 0; left: 0; z-index: 10;">
+        <h1 style="color: #fff; font-size: 3em; margin-bottom: 2em;">Plateforme 1 vs 1</h1>
+        <button id="play-btn" style="font-size: 2em; padding: 0.5em 2em;">Jouer</button>
     </div>
-    <!-- Canvas pour afficher le jeu -->
-    <canvas id="gameCanvas" width="800" height="450" style="display:none;"></canvas>
-    <script src="main.js"></script>
+    <div id="game-ui" style="display: none;">
+        <div id="left-panel" class="side-panel">
+            <h2>Combo Rouge</h2>
+            <div id="combo-rouge" class="combo-animation">Aucun combo</div>
+            <div id="player1-lives" class="lives">Vies : 3</div>
+            <div id="player1-health" class="health-bar">
+                <div class="health-fill" style="width: 100%;"></div>
+            </div>
+        </div>
+        <div id="game-container">
+            <div id="timer" class="timer">Temps : 02:00</div>
+            <canvas id="gamespace"></canvas>
+            <div id="game-status" style="color: white; font-size: 1.2em; margin: 5px 0; text-align: center;">Combat en cours!</div>
+            <div id="button-bar" style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+                <button id="home-btn" class="ui-btn">Accueil</button>
+                <button id="settings-btn" class="ui-btn">Paramètres</button>
+            </div>
+        </div>
+        <div id="right-panel" class="side-panel">
+            <h2>Combo Bleu</h2>
+            <div id="combo-bleu" class="combo-animation">Aucun combo</div>
+            <div id="player2-lives" class="lives">Vies : 3</div>
+            <div id="player2-health" class="health-bar">
+                <div class="health-fill" style="width: 100%;"></div>
+            </div>
+        </div>
+        <div id="settings-modal" style="display: none !important; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 20; align-items: center; justify-content: center;">
+            <div style="background: #222; color: #fff; padding: 2em; border-radius: 1em; min-width: 300px;">
+                <h2>Paramètres</h2>
+                <label for="music-volume">Volume musique :</label>
+                <input type="range" id="music-volume" min="0" max="100" value="50">
+                <br><br>
+                <label for="fx-volume">Volume effets spéciaux :</label>
+                <input type="range" id="fx-volume" min="0" max="100" value="50">
+                <br><br>
+                <label for="fullscreen-toggle">Mode plein écran :</label>
+                <button id="fullscreen-toggle" style="margin-left: 10px;">Activer</button>
+                <br><br>
+                <button id="close-settings" style="margin-top: 1em;">Fermer</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
-    // On attend que la page soit chargée
-    document.addEventListener('DOMContentLoaded', () => {
-        // On récupère le bouton démarrer
-        const startBtn = document.getElementById('startBtn');
-        // Quand on clique sur le bouton, on lance le jeu
-        if (startBtn) {
-            startBtn.addEventListener('click', () => {
-                lancerJeu(); // Appelle la fonction JS
-            });
-        }
-    });
+        // Bloquer tous les mécanismes de zoom
+        (function() {
+            // Empêcher le zoom par raccourcis clavier (Ctrl+/-)
+            document.addEventListener('keydown', function(event) {
+                if ((event.ctrlKey || event.metaKey) && 
+                    (event.key === '+' || event.key === '-' || event.key === '=' || event.key === '0' || 
+                     event.keyCode === 107 || event.keyCode === 109 || event.keyCode === 187 || 
+                     event.keyCode === 189 || event.keyCode === 96)) {
+                    event.preventDefault();
+                    return false;
+                }
+            }, { passive: false });
+            
+            // Empêcher le pinch-zoom sur les trackpads et écrans tactiles
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
+            document.addEventListener('gesturechange', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
+            document.addEventListener('gestureend', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
+            // Bloquer le zoom à la molette (avec Ctrl)
+            document.addEventListener('wheel', function(e) {
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            // Forcer la mise à l'échelle à 1.0 par JavaScript
+            function resetZoom() {
+                document.body.style.zoom = 1.0;
+                document.body.style.transform = 'scale(1.0)';
+                document.body.style.transformOrigin = '0 0';
+            }
+            
+            // Réinitialiser le zoom au chargement et lors des changements de fenêtre
+            window.addEventListener('load', resetZoom);
+            window.addEventListener('resize', resetZoom);
+            
+            // Tenter de bloquer également les gestes tactiles
+            document.addEventListener('touchstart', function(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault(); // Bloquer les gestes multi-touch
+                }
+            }, { passive: false });
+        })();
     </script>
+    
+    <script type="module" src="./dist/canvas_settings.js" defer></script>
+    <script type="module" src="./dist/ui.js" defer></script>
 </body>
 </html>

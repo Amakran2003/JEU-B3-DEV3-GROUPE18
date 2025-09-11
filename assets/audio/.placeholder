@@ -1,0 +1,12 @@
+Ce dossier contient les effets sonores du jeu.
+Vous pouvez y ajouter vos propres sons au format MP3.
+
+Sons nécessaires :
+- ui-click.mp3
+- jump.mp3
+- land.mp3
+- attack.mp3
+- hit.mp3
+- death.mp3
+- fall.mp3
+- game-over.mp3

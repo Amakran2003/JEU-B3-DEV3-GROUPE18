@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",          // Version de JS que TS doit générer
+    "module": "ES2020",          // Type de module pour les imports/exports
+    "rootDir": "./src",          // Dossier où se trouve ton code source .ts
+    "outDir": "./dist",          // Dossier où ira le code compilé .js
+    "strict": true,              // Active les vérifications strictes de TS
+    "esModuleInterop": true      // Pour éviter les soucis avec import/export
+  },
+  "include": [
+    "src/**/*"                    // Tous les fichiers TS dans /src
+  ],
+  "exclude": [
+    "node_modules"                // Ignore le dossier node_modules
+  ]
+}

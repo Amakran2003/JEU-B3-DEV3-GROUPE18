@@ -1,1 +1,220 @@
-/* ...style.css (styles de base du jeu) */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+  box-sizing: border-box;
+  
+  /* Désactiver zoom et sélection */
+  touch-action: none;
+  user-select: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Conteneur du jeu - centré avec ratio 16:9 strict */
+#game-ui {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+#game-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 0;
+  height: 100vh;
+  width: auto;
+}
+
+/* Panneaux latéraux fixes */
+.side-panel {
+  position: fixed;
+  top: 0;
+  width: 200px;
+  height: 100vh;
+  background: rgba(30,30,30,0.95);
+  color: #fff;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 50px;
+  box-shadow: 0 0 10px #000a;
+  font-family: Arial, sans-serif;
+}
+#left-panel {
+  position: relative;
+  left: 0;
+  border-right: 2px solid #900;
+  width: 200px;
+  height: 100vh;
+  z-index: 5;
+}
+#right-panel {
+  position: relative;
+  right: 0;
+  border-left: 2px solid #09f;
+  width: 200px;
+  height: 100vh;
+  z-index: 5;
+}
+
+canvas {
+  display: block;
+  background: #000;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  max-height: 720px;
+  
+  /* Optimisations de rendu pixel art */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Media queries pour les tailles d'écran courantes */
+
+/* Grand écran Acer */
+@media (min-width: 1921px) {
+  canvas {
+    width: 1800px;
+    height: 1012px;
+  }
+}
+
+/* Écran standard 1080p */
+@media (max-width: 1920px) and (min-width: 1601px) {
+  canvas {
+    width: 1600px;
+    height: 900px;
+  }
+}
+
+/* MacBook Pro / Écran moyen */
+@media (max-width: 1600px) and (min-width: 1441px) {
+  canvas {
+    width: 1440px;
+    height: 810px;
+  }
+}
+
+/* MacBook Air 13" */
+@media (max-width: 1440px) and (min-width: 1281px) {
+  canvas {
+    width: 1366px; /* Taille optimale pour MacBook Air */
+    height: 768px;
+  }
+}
+
+/* Écran plus petit */
+@media (max-width: 1280px) and (min-width: 993px) {
+  canvas {
+    width: 1024px;
+    height: 576px;
+  }
+}
+
+/* Très petit écran */
+@media (max-width: 992px) and (min-width: 769px) {
+  canvas {
+    width: 854px;
+    height: 480px;
+  }
+}
+
+/* Mobile en paysage */
+@media (max-width: 768px) and (min-width: 577px) {
+  canvas {
+    width: 640px;
+    height: 360px;
+  }
+}
+
+/* Mobile portrait - forcer paysage */
+@media (max-width: 576px) {
+  canvas {
+    width: 480px;
+    height: 270px;
+  }
+}
+
+.combo-animation {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0;
+  animation: pulse 1s infinite;
+}
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+.timer {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5em;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 10;
+}
+#button-bar {
+  margin-top: 50px;
+  display: flex;
+  gap: 10px;
+}
+#sound-control {
+  position: relative;
+}
+#sound-slider {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#sound-control.active #sound-slider {
+  display: block;
+}
+.lives {
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+.health-bar {
+  width: 80%;
+  height: 20px;
+  background: #444;
+  border: 1px solid #222;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+.health-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0f0, #ff0);
+}
+#settings-modal {
+  display: flex !important;
+}
+#settings-modal > div {
+  box-shadow: 0 0 30px #000a;
+}
+#main-menu {
+  font-family: Arial, sans-serif;
+}

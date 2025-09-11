@@ -1,0 +1,113 @@
+/* Styles supplémentaires pour le timer compte à rebours */
+.timer.warning {
+  color: #ffcc00;
+  animation: timer-pulse 1s infinite;
+}
+
+.timer.danger {
+  color: #ff0000;
+  animation: timer-pulse 0.5s infinite;
+}
+
+@keyframes timer-pulse {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+/* Styles pour l'écran de fin de jeu */
+#victory-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 1000;
+  font-family: 'Arial', sans-serif;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#victory-screen h1 {
+  font-size: 4em;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+#victory-screen h2 {
+  font-size: 2em;
+  margin: 10px 0;
+}
+
+#victory-screen h3 {
+  font-size: 1.5em;
+  margin: 5px 0 20px;
+  color: #ffcc00;
+}
+
+#victory-screen button {
+  background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  margin: 15px;
+  font-size: 1.5em;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+#victory-screen button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+#victory-screen button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.stats-display {
+  margin: 20px;
+  padding: 15px;
+  background: rgba(50, 50, 50, 0.7);
+  border-radius: 10px;
+  min-width: 300px;
+}
+
+.player-stats {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.player-name {
+  font-weight: bold;
+}
+
+.player-name.red {
+  color: #ff6666;
+}
+
+.player-name.blue {
+  color: #6699ff;
+}
