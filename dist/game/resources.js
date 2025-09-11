@@ -29,12 +29,12 @@ export const static_platforme = {
 };
 // Chargement des images de spritesheet pour le joueur 1 avec préchargement
 export const joueur1_idle = preloadImage('assets/images/personnages/joueur1/Idle1.png');
-export const joueur1_run = preloadImage('assets/images/personnages/joueur1/Run1.png');
+export const joueur1_run = preloadImage('assets/images/personnages/joueur1/run1.png');
 export const joueur1_jump = preloadImage('assets/images/personnages/joueur1/jump1.png');
 export const joueur1_death = preloadImage('assets/images/personnages/joueur1/death1.png');
 // Chargement des images de spritesheet pour le joueur 2 avec préchargement
 export const joueur2_idle = preloadImage('assets/images/personnages/joueur2/Idle2.png');
-export const joueur2_run = preloadImage('assets/images/personnages/joueur2/Run2.png');
+export const joueur2_run = preloadImage('assets/images/personnages/joueur2/run2.png');
 export const joueur2_jump = preloadImage('assets/images/personnages/joueur2/jump2.png');
 export const joueur2_death = preloadImage('assets/images/personnages/joueur2/death2.png');
 // Vérifier le chargement des ressources critiques
